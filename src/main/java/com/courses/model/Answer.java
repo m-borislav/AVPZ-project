@@ -1,19 +1,18 @@
 package com.courses.model;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "answers")
-//@Component
 public
 class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "text", unique = true, nullable = false, length = 300)
+    @Column(name = "text", nullable = false, length = 300)
     private String text;
+    @Column(name = "correctAnswer", nullable = false, length = 5)
+    private boolean correctAnswer;
     @ManyToOne(targetEntity = Question.class)
     private Question question;
 
@@ -42,5 +41,13 @@ class Answer {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public boolean isCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(boolean correctAnswer) {
+        this.correctAnswer = correctAnswer;
     }
 }

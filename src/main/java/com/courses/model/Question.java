@@ -1,22 +1,21 @@
 package com.courses.model;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "questions")
-//@Component
 public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "text", nullable = false, unique = true, length = 1000)
+    @Column(name = "text", nullable = false, length = 1000)
     private String text;
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Answer> answers;
+    @ManyToOne(targetEntity = Lesson.class)
+    private Lesson lesson;
 
     public Question() {
     }
@@ -43,5 +42,13 @@ public class Question {
 
     public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 }
